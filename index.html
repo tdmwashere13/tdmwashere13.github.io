@@ -2,7 +2,23 @@
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { margin: 0; background: #f7f2ea; }
+  body { margin: 0; background: #f7f2ea; transition: background-color 0.3s ease, color 0.3s ease; }
+  body.dark { background: #1a1a1a; color: #e8e0d0; }
+
+  .moon-toggle {
+    position: fixed;
+    top: 1.2rem;
+    right: 1.5rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #4a7fc1;
+    background: none;
+    border: none;
+    line-height: 1;
+    z-index: 999;
+    transition: color 0.3s ease;
+  }
+  body.dark .moon-toggle { color: #ffffff; }
 
   .sbp-wrap {
     background: #f7f2ea;
@@ -12,7 +28,9 @@
     align-items: center;
     padding: 3rem 2rem 0;
     font-family: 'EB Garamond', Georgia, serif;
+    transition: background-color 0.3s ease;
   }
+  body.dark .sbp-wrap { background: #1a1a1a; }
 
   .sbp-name {
     font-family: 'Cinzel', serif;
@@ -22,7 +40,9 @@
     color: #1e1810;
     text-align: center;
     margin-bottom: 0.4rem;
+    transition: color 0.3s ease;
   }
+  body.dark .sbp-name { color: #e8e0d0; }
 
   .sbp-subtitle {
     font-family: 'Cormorant Garamond', serif;
@@ -32,7 +52,9 @@
     text-align: center;
     letter-spacing: 0.08em;
     margin-bottom: 1.4rem;
+    transition: color 0.3s ease;
   }
+  body.dark .sbp-subtitle { color: #a89880; }
 
   .sbp-rule {
     display: flex;
@@ -219,6 +241,7 @@
 </style>
 
 <div class="sbp-wrap">
+  <button class="moon-toggle" onclick="toggleDark()" title="Toggle dark mode">&#9790;</button>
   <div class="sbp-name">Sandy B. Patterson</div>
   <div class="sbp-subtitle">Short Stories &amp; Novels</div>
 
@@ -257,3 +280,13 @@
   <div class="sbp-shelf-floor"></div>
   <div class="sbp-shelf-shadow"></div>
 </div>
+
+<script>
+  if (localStorage.getItem('darkMode') === 'on') {
+    document.body.classList.add('dark');
+  }
+  function toggleDark() {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark') ? 'on' : 'off');
+  }
+</script>
